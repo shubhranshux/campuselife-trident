@@ -1,86 +1,154 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Hero = () => {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  
-  const slides = [
-    "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&q=80&w=1200"
-  ];
+const SLIDES = [
+  {
+    image: "/hero_campus_fest_1780036785374.png",
+    heading: "Campus Life",
+    sub: "Where memories are made",
+    accent: "#E8BD63",
+  },
+  {
+    image: "/hero_campus_aerial_1780036803636.png",
+    heading: "Our Campus",
+    sub: "Built for brilliance",
+    accent: "#34785A",
+  },
+  {
+    image: "/hero_students_group_1780036822222.png",
+    heading: "Friendships",
+    sub: "Bonds that last forever",
+    accent: "#E56D24",
+  },
+  {
+    image: "/hero_sports_action_1780036845055.png",
+    heading: "Play Hard",
+    sub: "Champions are forged here",
+    accent: "#D3494B",
+  },
+];
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
+export default function CampusHero() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setCurrent(prev => (prev + 1) % SLIDES.length);
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  const goTo = (idx) => {
+    setDirection(idx > current ? 1 : -1);
+    setCurrent(idx);
+  };
+
+  const slide = SLIDES[current];
+
   return (
-    <section className="min-h-screen flex items-center pt-[160px] pb-24 overflow-hidden relative" style={{ background: '#FAF9F6' }}>
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 grid lg:grid-cols-2 gap-20 items-center">
-        
-        {/* Hero Content */}
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="relative z-10"
-        >
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] mb-10 text-[#3E3A36]">
-            Tradition <br />
-            <span className="italic text-[#253386] font-light">meets</span> <br />
-            <span className="font-black text-[#253386]">Innovation</span>
-          </h1>
-          <p className="text-[1.25rem] font-medium text-[#3E3A36]/60 mb-10 max-w-[520px] leading-relaxed font-body">
-            Immerse yourself in Odisha's premier technical ecosystem. Rigorous academics meet world-class innovation labs to forge the leaders of tomorrow.
-          </p>
-        </motion.div>
+    <section className="relative h-screen w-full overflow-hidden bg-[#1A1817]">
 
-        {/* Hero Image */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="relative h-full flex items-center"
+      {/* Background Image with Ken Burns */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, scale: 1.15 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
         >
-          <div className="absolute -top-12 -left-24 w-[400px] h-[400px] bg-[#E5AA3E]/10 blur-[100px] rounded-full -z-10 animate-pulse"></div>
-          <div className="w-full aspect-[4/5] bg-[#070B2B] rounded-[40px] overflow-hidden shadow-[0_60px_100px_rgba(7,11,43,0.15)] relative group">
-            {slides.map((slide, index) => (
-              <img 
-                key={index}
-                src={slide}
-                alt={`Elite Campus Environment ${index + 1}`} 
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${index === currentSlide ? 'opacity-90 z-10' : 'opacity-0 z-0'}`}
+          <img
+            src={slide.image}
+            alt={slide.heading}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Cinematic Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1817] via-[#1A1817]/60 to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1A1817]/80 via-[#1A1817]/20 to-transparent z-0" />
+
+
+
+      {/* Content — Bottom-Left Editorial Style */}
+      <div className="absolute inset-0 flex items-end">
+        <div className="w-full max-w-[1400px] mx-auto px-6 xl:px-14 pb-28 md:pb-36">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Accent Line */}
+              <motion.div
+                className="w-16 h-1 rounded-full mb-6"
+                style={{ backgroundColor: slide.accent }}
+                layoutId="accent-line"
               />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070B2B]/60 to-transparent z-20 pointer-events-none"></div>
-            
-            {/* Live Progress Indicator */}
-            <div className="absolute bottom-10 left-10 flex items-center gap-6 text-white/60 text-[12px] font-bold tracking-widest uppercase z-30">
-              <div className="flex gap-2">
-                {slides.map((_, i) => (
-                  <button 
-                    key={i} 
-                    onClick={() => setCurrentSlide(i)}
-                    className={`h-1 rounded-full transition-all duration-500 cursor-pointer ${i === currentSlide ? 'w-12 bg-[#E5AA3E]' : 'w-6 bg-white/20 hover:bg-white/40'}`}
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-              <span>{String(currentSlide + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
-            </div>
-          </div>
-        </motion.div>
 
+              {/* Main Heading — Massive */}
+              <h1
+                className="serif text-[64px] md:text-[96px] lg:text-[140px] font-bold text-white leading-[0.85] tracking-[-0.03em] mb-6"
+              >
+                {slide.heading}
+              </h1>
+
+              {/* Sub Text */}
+              <p className="text-white/70 text-xl md:text-2xl font-light tracking-wide max-w-lg">
+                {slide.sub}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
+
+      {/* Right-side Vertical Progress Dots */}
+      <div className="absolute right-6 xl:right-14 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20">
+        {SLIDES.map((s, idx) => (
+          <button
+            key={idx}
+            onClick={() => goTo(idx)}
+            className="group relative w-3 flex flex-col items-center"
+          >
+            <div
+              className="w-3 h-3 rounded-full border-2 transition-all duration-500"
+              style={{
+                borderColor: idx === current ? s.accent : 'rgba(255,255,255,0.3)',
+                backgroundColor: idx === current ? s.accent : 'transparent',
+                boxShadow: idx === current ? `0 0 12px ${s.accent}60` : 'none',
+              }}
+            />
+            {idx === current && (
+              <motion.div
+                layoutId="dot-label"
+                className="absolute right-6 top-1/2 -translate-y-1/2 whitespace-nowrap"
+              >
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+              </motion.div>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Bottom Scroll Hint */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <div className="w-[1px] h-8 bg-white/30" />
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40">Scroll</span>
+      </motion.div>
     </section>
   );
-};
-
-export default Hero;
+}

@@ -17,7 +17,7 @@ import Events from './components/activities/Events';
 import Sports from './components/activities/Sports';
 import Leadership from './components/activities/Leadership';
 
-import SectionDivider, { SkewedMarquee } from './components/common/SectionDivider';
+import SectionDivider from './components/common/SectionDivider';
 import Footer from './components/common/Footer';
 
 import AboutTrident from './pages/AboutTrident';
@@ -25,54 +25,72 @@ import DepartmentLibraries from './pages/DepartmentLibraries';
 
 function MainContent() {
   return (
-    <main className="bg-[#070B2B]">
-      {/* ── Hero ── */}
+    <main>
+      {/* ── Hero (dark bg with campus images) ── */}
       <CampusHero />
 
-      {/* wave transition from Hero to dark futuristic zone */}
-      <SectionDivider type="wave" topColor="#FAF9F6" bottomColor="#070B2B" height={90} />
+      {/* Hero (dark) → News (cream) */}
+      <SectionDivider type="wave" topColor="#1A1817" bottomColor="#F5EEEC" height={80} />
 
-      {/* ── News / Highlights ── */}
+      {/* ── News — Magazine Spread ── */}
       <News />
 
-      {/* ── Research ── */}
+      {/* News (cream) → Research (dark emerald) */}
+      <SectionDivider type="curve" topColor="#F5EEEC" bottomColor="#1A2E22" height={70} />
+
+      {/* ── Research — Split Screen ── */}
       <CampusResearch />
 
-      {/* ── Activities Overview ── */}
+      {/* Research (dark emerald) → Activities (warm gradient) */}
+      <SectionDivider type="wave" topColor="#1A2E22" bottomColor="#EFE7DF" height={70} />
+
+      {/* ── Activities — Accordion ── */}
       <Activities />
 
-      {/* ── Facilities ── */}
+      {/* Activities (cream) → Facilities (light) */}
+      <SectionDivider type="curve" topColor="#F5EEEC" bottomColor="#F9F7F5" height={60} />
+
+      {/* ── Facilities — Tabs ── */}
       <CampusFacilities />
 
-      {/* ── Impact Stats ── */}
+      {/* Facilities (light) → Impact (dark) */}
+      <SectionDivider type="tilt" topColor="#F9F7F5" bottomColor="#1A1817" height={70} />
+
+      {/* ── Impact — Counter Dashboard ── */}
       <Impact />
 
-      {/* ── Events (timeline) ── */}
+      {/* Impact (dark) → Events (cream) */}
+      <SectionDivider type="wave" topColor="#1A1817" bottomColor="#FAF7F2" height={70} />
+
+      {/* ── Events — Horizontal Cards ── */}
       <Events />
 
-      {/* ── Marquee ticker ── */}
-      <div className="py-12 bg-[#070B2B]">
-        <SkewedMarquee
-          items={['Quantum Network Active', 'A.I. Security Grid Online', 'Global Sync Complete', 'Neural Nodes Connected', 'Future Engineered']}
-          bgColor="#E8BD63"
-          speed={35}
-        />
-      </div>
+      {/* Events (cream) → Clubs (dark charcoal) */}
+      <SectionDivider type="curve" topColor="#FAF7F2" bottomColor="#3E3A36" height={70} />
 
-      {/* ── Clubs ── */}
+      {/* ── Clubs — Film-strip Carousel ── */}
       <Clubs />
 
-      {/* ── Sports ── */}
+      {/* Clubs (dark) → Sports (cream) */}
+      <SectionDivider type="wave" topColor="#3E3A36" bottomColor="#F5EEEC" height={70} />
+
+      {/* ── Sports — Mosaic Gallery ── */}
       <Sports />
 
-      {/* ── Leadership ── */}
+      {/* Sports (cream) → Leadership (dark) */}
+      <SectionDivider type="curve" topColor="#F5EEEC" bottomColor="#1A1817" height={70} />
+
+      {/* ── Leadership — Circular Portraits ── */}
       <Leadership />
 
-      {/* ── Quote ── */}
+      {/* Leadership (dark) → Quote (blue) */}
+      <SectionDivider type="wave" topColor="#1A1817" bottomColor="#2C3A8C" height={70} />
+
+      {/* ── Quote — Cinematic ── */}
       <Quote />
 
-      {/* curve → footer dark */}
-      <SectionDivider type="curve" topColor="#070B2B" bottomColor="#1A1817" height={80} />
+      {/* Quote (blue) → Footer (dark) */}
+      <SectionDivider type="curve" topColor="#2C3A8C" bottomColor="#1A1817" height={70} />
     </main>
   );
 }
@@ -80,7 +98,6 @@ function MainContent() {
 export default function App() {
   return (
     <Router>
-      <div className="noise-overlay" />
       <Header />
       
       <Routes>
@@ -93,4 +110,3 @@ export default function App() {
     </Router>
   );
 }
-

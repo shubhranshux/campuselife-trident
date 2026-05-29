@@ -149,7 +149,7 @@ export function SkewedMarquee({ items = [], bgColor = '#111827', speed = 30 }) {
         >
           {repeated.map((item, i) => (
             <span key={i} className="flex items-center">
-              <span className="font-serif text-lg md:text-xl lg:text-2xl italic font-medium text-[#E8BD63] tracking-wide px-8 md:px-10 lg:px-12 cursor-default hover:text-[#F5D78E] transition-colors duration-300">
+              <span className="serif text-lg md:text-xl lg:text-2xl italic font-medium text-[#E8BD63] tracking-wide px-8 md:px-10 lg:px-12 cursor-default hover:text-[#F5D78E] transition-colors duration-300">
                 {item}
               </span>
               <span className="w-[1px] h-5 bg-[#E8BD63]/30 flex-shrink-0" />

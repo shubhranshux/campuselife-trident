@@ -1,54 +1,54 @@
+/* ── Premium Web Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,800;0,8..60,900;1,8..60,300;1,8..60,400;1,8..60,700&family=Inter:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Playfair Display';
-  font-style: normal;
-  font-weight: 300 900;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__koJKkmOob-n7.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v26/JTUSjIg1_i6t8kCHKm4df9GRpuTI6p7ZSQ.woff2) format('woff2');
-}
-
 :root {
-  --royal-blue: #253386;
-  --brand-gold: #E5AA3E;
-  --soft-off-white: #FAF9F6;
-  --charcoal: #111111;
-  --neon-blue: #349FCC;
-  --neon-purple: #2C3A8C;
-  --plasma-pink: #E56D24;
-  --brand-crimson: #D3494B;
-  --brand-emerald: #10B981;
+  --primary-blue: #2C3A8C;
+  --secondary-beige: #A59381;
+  --bg-light: #EFE7DF;
+  --bg-soft: #F5EEEC;
+  --bg-cream: #FAF9F6;
+  --bg-warm: #FAF7F2;
+  --text-dark: #3E3A36;
   --brand-gold: #E8BD63;
+  --brand-emerald: #34785A;
+  --brand-crimson: #D3494B;
+  --brand-navy: #111827;
+  --brand-amber: #F0BB51;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
-    background-color: #070B2B; /* Dark futuristic base */
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+    background-color: var(--bg-light);
   }
 
   body {
-    @apply text-white font-sans leading-relaxed;
-    background-color: #070B2B;
-    font-family: 'Montserrat', 'DM Sans', 'Plus Jakarta Sans', sans-serif;
-    overflow-x: hidden;
+    font-family: 'Inter', 'DM Sans', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+  h1, h2, h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
     font-weight: 700;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  h4, h5, h6 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   a {
@@ -61,25 +61,31 @@
     max-width: 100%;
     display: block;
   }
+
+  p {
+    font-size: 18px;
+    line-height: 1.75;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
 }
 
 /* ── Custom Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #070B2B; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-soft); }
 ::-webkit-scrollbar-thumb {
-  background: var(--neon-blue);
-  border-radius: 100px;
-  box-shadow: 0 0 10px var(--neon-blue);
+  background: var(--secondary-beige);
+  border-radius: 5px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--neon-purple); }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--neon-blue) #070B2B;
+  scrollbar-color: var(--secondary-beige) var(--bg-soft);
 }
 
-/* ── Lenis Smooth Scroll Recommended CSS ── */
+/* ── Lenis Smooth Scroll ── */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -87,160 +93,165 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
 @layer components {
-  /* Typography utilities */
-  .font-display { font-family: 'Playfair Display', serif; }
-  .font-body { font-family: 'Montserrat', sans-serif; }
+  /* ── Typography Classes ── */
+  .serif {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
 
-  /* Section Headlines */
+  .font-display {
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', 'DM Sans', sans-serif;
+  }
+
+  /* ── Section Titles ── */
   .section-title {
-    @apply relative inline-block font-display font-bold text-4xl md:text-6xl mb-6;
-    background: linear-gradient(to right, #fff, rgba(255,255,255,0.6));
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+
+  /* ── Gold Rule Accent ── */
+  .rose-rule {
+    display: block;
+    width: 80px;
+    height: 3px;
+    background-color: #EAB308;
+    margin-bottom: 1.5rem;
+    transition: width 0.6s ease;
+  }
+  .group:hover .rose-rule { width: 120px; }
+
+  /* ── Premium Buttons ── */
+  .btn-rose, .btn-outline-rose, .btn-outline-white, .btn-creative {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease, background-color 0.4s ease;
+    transform-style: preserve-3d;
+    perspective: 800px;
+    will-change: transform;
+  }
+
+  .btn-rose {
+    background-color: var(--primary-blue);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 10px 30px -10px rgba(27, 77, 142, 0.6);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .btn-rose::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
+    background: rgba(255,255,255,0.1); z-index: -1; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-rose:hover::before { width: 100%; }
+  .btn-rose:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 20px 40px -10px rgba(27, 77, 142, 0.8);
+  }
+
+  .btn-outline-rose {
+    border: 1.5px solid var(--primary-blue);
+    color: var(--primary-blue);
+    letter-spacing: 0.1em;
+  }
+  .btn-outline-rose:hover {
+    background-color: var(--primary-blue);
+    color: white;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 20px 40px -10px rgba(27, 77, 142, 0.4);
+  }
+
+  .btn-outline-white {
+    border: 1.5px solid rgba(255,255,255,0.8);
+    color: white;
+    backdrop-filter: blur(4px);
+    letter-spacing: 0.1em;
+  }
+  .btn-outline-white:hover {
+    background-color: white;
+    color: var(--primary-blue) !important;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.4);
+  }
+
+  /* ── Nav Links ── */
+  .nav-link {
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-blue);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+  .nav-link.active, .nav-link:hover { color: var(--primary-blue) !important; }
+
+  /* ── Premium Card Hover (subtle, not cyber) ── */
+  .card-hover {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(232, 167, 35, 0.2);
+    background: #ffffff;
+  }
+  .card-hover:hover {
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
+    transform: translateY(-4px);
+  }
+
+  /* ── Subtle Gradient Text ── */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary-blue), var(--brand-emerald));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 40px rgba(255,255,255,0.2);
   }
 
-  /* ── ULTRA PREMIUM FUTURISTIC EFFECTS ── */
-
-  /* 1. Quantum Flux */
-  .quantum-flux {
-    position: relative;
+  /* ── Ticker / Marquee ── */
+  .ticker-wrap {
     overflow: hidden;
-  }
-  .quantum-flux::before {
-    content: '';
-    position: absolute;
-    inset: -50%;
-    background: conic-gradient(from 0deg, transparent 0 340deg, var(--neon-blue) 360deg);
-    animation: rotate 4s linear infinite;
-    z-index: 0;
-    opacity: 0.3;
-  }
-  .quantum-flux::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: rgba(10, 10, 20, 0.9);
-    backdrop-filter: blur(20px);
-    border-radius: inherit;
-    z-index: 0;
+    background-color: var(--bg-soft) !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
   }
 
-  /* 2. Liquid Metal */
-  .liquid-metal {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%);
-    box-shadow: inset 0 0 20px rgba(255,255,255,0.2), 0 20px 40px rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  .liquid-metal::after {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-    transform: rotate(30deg);
-    animation: liquid-shine 6s infinite;
-  }
-
-  /* 3. Holographic Prism */
-  .holographic {
-    background: linear-gradient(120deg, rgba(255,0,127,0.2), rgba(0,243,255,0.2), rgba(157,0,255,0.2));
-    background-size: 200% 200%;
-    animation: holo-shift 5s ease infinite;
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 10px 30px rgba(0,243,255,0.1), inset 0 0 20px rgba(255,0,127,0.1);
-  }
-
-  /* 4. Cyber Grid */
-  .cyber-grid-bg {
-    background-image: 
-      linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: grid-move 20s linear infinite;
-    perspective: 1000px;
-  }
-
-  /* 5. Plasma Wave */
-  .plasma-text {
-    background: linear-gradient(270deg, var(--neon-blue), var(--plasma-pink), var(--neon-purple), var(--neon-blue));
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: plasma-flow 8s ease infinite;
-    text-shadow: 0 0 20px rgba(0,243,255,0.4);
-  }
-
-  /* 6. Dimensional Portal */
-  .portal-card {
-    border-radius: 30px;
-    background: radial-gradient(circle at center, rgba(157,0,255,0.1) 0%, rgba(0,0,0,0.8) 100%);
-    box-shadow: 0 0 50px rgba(157,0,255,0.2), inset 0 0 30px rgba(0,243,255,0.2);
-    border: 1px solid rgba(157,0,255,0.3);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-  }
-  .portal-card:hover {
-    transform: scale(1.05) translateZ(50px);
-    box-shadow: 0 0 80px rgba(0,243,255,0.4), inset 0 0 50px rgba(157,0,255,0.4);
-  }
-
-  /* 7. Crystal Edge */
-  .crystal-edge {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(24px);
-    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
-    position: relative;
-  }
-  .crystal-edge::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
-    pointer-events: none;
-  }
-
-  /* Keyframes */
-  @keyframes rotate { 100% { transform: rotate(360deg); } }
-  @keyframes liquid-shine { 
-    0% { transform: translateX(-100%) rotate(30deg); } 
-    100% { transform: translateX(100%) rotate(30deg); } 
-  }
-  @keyframes holo-shift { 
-    0% { background-position: 0% 50%; } 
-    50% { background-position: 100% 50%; } 
-    100% { background-position: 0% 50%; } 
-  }
-  @keyframes grid-move { 
-    0% { background-position: 0 0; } 
-    100% { background-position: 40px 40px; } 
-  }
-  @keyframes plasma-flow { 
-    0% { background-position: 0% 50%; } 
-    50% { background-position: 100% 50%; } 
-    100% { background-position: 0% 50%; } 
-  }
-
-  /* Floating animation */
+  /* ── Floating animation ── */
   .float-slow { animation: float-obj 8s ease-in-out infinite; }
   .float-medium { animation: float-obj 5s ease-in-out infinite; }
-  .float-fast { animation: float-obj 3s ease-in-out infinite; }
   @keyframes float-obj {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-12px); }
   }
 
-  /* Pulse animation */
-  .pulse-glow { animation: pulse-glow 3s infinite alternate; }
-  @keyframes pulse-glow {
-    0% { box-shadow: 0 0 20px rgba(0,243,255,0.2); }
-    100% { box-shadow: 0 0 60px rgba(0,243,255,0.6); }
+  /* ── Scroll caret bounce ── */
+  @keyframes scrollBounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+  .scroll-caret { animation: scrollBounce 2s ease-in-out infinite; }
+
+  /* ── Noise Overlay ── */
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.018;
+    mix-blend-mode: overlay;
   }
 }
-

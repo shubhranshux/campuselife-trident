@@ -100,22 +100,29 @@ export default function Header() {
           <a href="https://tat.tekkzy.com" className="flex items-center gap-3.5 group cursor-pointer text-decoration-none">
             <img src={logo} alt="TAT Logo" className="w-12 h-12 md:w-[52px] md:h-[52px] object-contain flex-shrink-0 drop-shadow-sm" />
             <div className="hidden sm:flex flex-col justify-center">
-              <div className={"font-serif text-[22px] md:text-[24px] font-bold leading-none tracking-[0.04em] uppercase transition-colors duration-500 " + (navActive ? "text-[#3E3A36]" : "text-white")}>Trident</div>
-              <div className={"w-full h-[1px] my-[3px] transition-all duration-500 " + (navActive ? "bg-gradient-to-r from-[#1B4D8E] to-transparent" : "bg-gradient-to-r from-white/50 to-transparent")}></div>
-              <div className={"text-[9px] md:text-[10px] font-medium tracking-[0.22em] uppercase leading-none transition-colors duration-500 " + (navActive ? "text-[#1B4D8E]" : "text-white/80")}>Academy of Technology</div>
+              <div className={"serif text-[22px] md:text-[24px] font-bold leading-none tracking-[0.04em] uppercase transition-colors duration-500 " + (navActive ? "text-[#3E3A36]" : "text-white")}>Trident</div>
+              <div className={"w-full h-[1px] my-[3px] transition-all duration-500 " + (navActive ? "bg-gradient-to-r from-[#2C3A8C] to-transparent" : "bg-gradient-to-r from-white/50 to-transparent")}></div>
+              <div className={"text-[9px] md:text-[10px] font-medium tracking-[0.22em] uppercase leading-none transition-colors duration-500 " + (navActive ? "text-[#2C3A8C]" : "text-white/80")}>Academy of Technology</div>
             </div>
           </a>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:block">
             <ul className="flex items-center gap-6 list-none m-0 p-0">
-              {NAV_LINKS.map(item => (
-                <li key={item.label}>
-                  <a href={item.href} className={"nav-link text-[14px] uppercase tracking-[0.14em] cursor-pointer whitespace-nowrap font-extrabold transition-colors duration-500 text-decoration-none " + (navActive ? "text-[#3E3A36] hover:text-[#2C3A8C]" : "text-white/90 hover:text-white")}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {NAV_LINKS.map(item => {
+                const isCampusLife = item.label === "Campus Life";
+                return (
+                  <li key={item.label} className="relative group">
+                    <a href={item.href} className={`nav-link text-[14px] uppercase tracking-[0.14em] cursor-pointer whitespace-nowrap font-extrabold transition-colors duration-500 text-decoration-none ${navActive ? "text-[#3E3A36] hover:text-[#2C3A8C]" : "text-white/90 hover:text-white"}`}>
+                      {item.label}
+                    </a>
+                    {/* Active Underline for Campus Life */}
+                    {isCampusLife && (
+                      <div className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-[#E8BD63] rounded-full" />
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 

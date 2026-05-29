@@ -1,109 +1,152 @@
-import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+
+import sport1 from '../../assets/Gym.jpg';
+import sport2 from '../../assets/facilities_sports.jpg';
+import sport3 from '../../assets/facilities_campus_green.jpg';
+import sport4 from '../../assets/about_students_studying.jpg';
+import sport5 from '../../assets/news_campus_life.jpg';
+import sport6 from '../../assets/cta_campus_reading.jpg';
 
 const sports = [
-  { img: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=600&h=800', label: 'Cricket', accent: '#E8BD63' },
-  { img: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80&w=600&h=800', label: 'Basketball', accent: '#E56D24' },
-  { img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=600&h=800', label: 'Football', accent: '#349FCC' },
-  { img: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=600&h=800', label: 'Volleyball', accent: '#E63946' },
-  { img: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&q=80&w=600&h=800', label: 'Badminton', accent: '#10B981' },
-  { img: 'https://images.unsplash.com/photo-1611251135345-18c56206b863?auto=format&fit=crop&q=80&w=600&h=800', label: 'Table Tennis', accent: '#8B5CF6' },
+  { img: sport1, label: 'Gymnasium', accent: '#E8BD63', stat: 'Modern Equipments' },
+  { img: sport2, label: 'Basketball', accent: '#E56D24', stat: '3 Courts' },
+  { img: sport3, label: 'Football', accent: '#34785A', stat: 'FIFA Standard' },
+  { img: sport4, label: 'Volleyball', accent: '#D3494B', stat: '2 Courts' },
+  { img: sport5, label: 'Badminton', accent: '#2C3A8C', stat: 'Indoor Arena' },
+  { img: sport6, label: 'Table Tennis', accent: '#A59381', stat: '4 Tables' },
 ]
 
+/*
+ * DESIGN: "Typographic List" — completely non-card based.
+ * Just large typography separated by thin elegant borders.
+ * Images appear floating on hover.
+ */
 export default function Sports() {
-  const sectionRef = useRef(null)
+  const [hoveredIdx, setHoveredIdx] = useState(null)
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden bg-[#070B2B]" id="sports">
-      {/* Infinity Tunnel Background */}
-      <div className="absolute inset-0 pointer-events-none perspective-[1000px] flex items-center justify-center opacity-30">
-        <div className="w-[200vw] h-[200vh] border-[10px] border-[#349FCC]/20 rounded-full animate-[spin_60s_linear_infinite]" />
-        <div className="absolute w-[150vw] h-[150vh] border-[8px] border-[#2C3A8C]/20 rounded-full animate-[spin_40s_linear_reverse_infinite]" />
-        <div className="absolute w-[100vw] h-[100vh] border-[5px] border-[#E56D24]/20 rounded-full animate-[spin_20s_linear_infinite]" />
+    <section className="relative py-28 md:py-36 overflow-hidden" id="sports" style={{ backgroundColor: '#F5EEEC' }}>
+
+      {/* Background Style: Noise Texture + Floating Shapes (Static, Multi-color) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]">
+          <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+        </svg>
+        <div 
+          className="absolute top-20 left-20 w-32 h-32 rounded-full border border-[#34785A]/20" 
+        />
+        <div 
+          className="absolute bottom-40 right-20 w-48 h-48 border border-[#E8BD63]/20" 
+          style={{ transform: 'rotate(45deg)' }}
+        />
+        <div 
+          className="absolute top-1/2 left-1/3 w-24 h-24 border border-[#E56D24]/20" 
+          style={{ transform: 'rotate(20deg)' }}
+        />
+        <div 
+          className="absolute top-[20%] right-[30%] w-32 h-32 rounded-full border border-[#2C3A8C]/15" 
+        />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="inline-block px-6 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md mb-6"
-            >
-              <span className="text-white text-sm tracking-[0.3em] uppercase font-bold">Physical Matrices</span>
-            </motion.div>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-5xl md:text-7xl font-black text-white"
-            >
-              Athletic <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#349FCC] to-[#E56D24]">Dynamics</span>
-            </motion.h2>
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex gap-8 mt-8 md:mt-0"
-          >
-            <div className="liquid-metal p-6 rounded-2xl text-center">
-              <div className="text-4xl font-black text-[#349FCC]">15+</div>
-              <div className="text-xs text-white/50 tracking-widest uppercase mt-2">Facilities</div>
-            </div>
-            <div className="liquid-metal p-6 rounded-2xl text-center">
-              <div className="text-4xl font-black text-[#2C3A8C]">5x</div>
-              <div className="text-xs text-white/50 tracking-widest uppercase mt-2">Championships</div>
-            </div>
-          </motion.div>
-        </div>
+      <div className="max-w-[1400px] mx-auto px-6 xl:px-14 relative z-10">
 
-        {/* Infinity Horizontal Scroll Area */}
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#070B2B] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#070B2B] to-transparent z-10 pointer-events-none" />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="serif text-4xl font-bold text-[#34785A]/30">✦</span>
+          </div>
+          <h2 className="serif text-4xl md:text-5xl lg:text-[56px] text-[#3E3A36] leading-[1.05] tracking-tight">
+            Play with<br /><span className="italic font-light text-[#34785A]">passion.</span>
+          </h2>
+        </motion.div>
+
+        {/* Non-Card Typographic List */}
+        <div className="max-w-5xl mx-auto flex flex-col relative">
           
-          <div className="flex gap-6 overflow-x-auto pb-10 pt-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
-            {sports.map((sport, idx) => (
+          {/* Top border of the list */}
+          <div className="w-full h-[1px] bg-[#3E3A36]/10" />
+
+          {sports.map((sport, idx) => {
+            const isHovered = hoveredIdx === idx
+
+            return (
               <motion.div
                 key={sport.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="flex-shrink-0 w-[320px] h-[480px] relative rounded-[30px] overflow-hidden snap-center group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                className="group flex flex-col md:flex-row items-center justify-between py-10 md:py-12 border-b border-[#3E3A36]/10 relative cursor-pointer"
               >
-                <img 
-                  src={sport.img} 
-                  alt={sport.label} 
-                  className="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-                />
-                
-                {/* Cyber Grid Overlay */}
-                <div className="absolute inset-0 cyber-grid-bg opacity-20 mix-blend-screen" />
-                
-                {/* Glowing borders */}
-                <div className="absolute inset-0 border-2 rounded-[30px] pointer-events-none transition-colors duration-500" style={{ borderColor: `${sport.accent}40`, boxShadow: `inset 0 0 30px ${sport.accent}20` }} />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                
-                {/* Label container floating like liquid metal */}
-                <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl liquid-metal border border-white/10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="w-2 h-2 rounded-full mb-3" style={{ background: sport.accent, boxShadow: `0 0 10px ${sport.accent}` }} />
-                  <h4 className="text-white text-2xl font-bold tracking-wide group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r transition-all" style={{ backgroundImage: `linear-gradient(to right, #fff, ${sport.accent})` }}>
+                {/* Left Side: Stat */}
+                <div className="w-full md:w-48 text-left mb-2 md:mb-0">
+                  <span 
+                    className="text-[12px] font-bold uppercase tracking-[0.25em] transition-colors duration-500"
+                    style={{ color: isHovered ? sport.accent : '#3E3A3640' }}
+                  >
+                    {sport.stat}
+                  </span>
+                </div>
+
+                {/* Center: Massive Typography */}
+                <div className="flex-1 text-left relative z-10 w-full">
+                  <h3 
+                    className="serif text-5xl md:text-7xl lg:text-[90px] font-bold text-[#3E3A36] transition-all duration-700 leading-none"
+                    style={{ 
+                      transform: isHovered ? 'translateX(20px)' : 'translateX(0px)',
+                      color: isHovered ? '#1A1817' : '#3E3A36'
+                    }}
+                  >
                     {sport.label}
-                  </h4>
+                  </h3>
+                </div>
+
+                {/* Right: Arrow Icon */}
+                <div className="hidden md:flex w-16 h-16 rounded-full border border-[#3E3A36]/20 items-center justify-center transition-all duration-500 group-hover:bg-[#3E3A36]">
+                  <ArrowRight size={24} className="text-[#3E3A36] group-hover:text-[#F5EEEC] group-hover:-rotate-45 transition-all duration-500" />
+                </div>
+
+                {/* Hover Reveal Image (Floating) */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                      animate={{ opacity: 1, scale: 1, x: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, x: 20 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className="hidden md:block absolute right-32 top-1/2 -translate-y-1/2 w-80 h-48 rounded-[20px] overflow-hidden shadow-2xl pointer-events-none z-20"
+                    >
+                      <div className="absolute inset-0 bg-black/10 z-10" />
+                      <img 
+                        src={sport.img} 
+                        alt={sport.label} 
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Mobile Image Reveal (Inline) */}
+                <div className={`md:hidden w-full overflow-hidden transition-all duration-500 mt-6 rounded-[16px] ${isHovered ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <img src={sport.img} alt={sport.label} className="w-full h-48 object-cover" />
                 </div>
               </motion.div>
-            ))}
-          </div>
+            )
+          })}
         </div>
-
       </div>
     </section>
   )
 }
-
