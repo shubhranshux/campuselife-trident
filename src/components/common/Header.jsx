@@ -93,7 +93,7 @@ export default function Header() {
       </div>
 
       <header 
-        className={"relative transition-all duration-500 " + (navActive ? "bg-white shadow-[0_4px_20px_-4px_rgba(15,23,42,0.12)] py-3" : "bg-transparent py-5")}
+        className={`relative transition-all duration-500 ${navActive ? "bg-white shadow-[0_4px_20px_-4px_rgba(15,23,42,0.12)] py-3" : "bg-transparent py-5"}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -101,11 +101,11 @@ export default function Header() {
             
           {/* Logo Lockup */}
           <a href="https://tat.tekkzy.com" className="flex items-center gap-3.5 group cursor-pointer text-decoration-none">
-            <img src={logo} alt="TAT Logo" className="w-12 h-12 md:w-[52px] md:h-[52px] object-contain flex-shrink-0 drop-shadow-sm" />
+            <img src={logo} alt="TAT Logo" className={`w-12 h-12 md:w-[52px] md:h-[52px] object-contain flex-shrink-0 drop-shadow-sm transition-all duration-500 ${!navActive ? "brightness-0 invert" : ""}`} />
             <div className="hidden sm:flex flex-col justify-center items-start">
-              <div className={"font-serif text-[24px] md:text-[28px] font-black leading-none uppercase transition-colors duration-500 " + (navActive ? "text-[#3E3A36]" : "text-white")} style={{ fontFamily: "'Playfair Display', 'Source Serif 4', serif", letterSpacing: "0.02em" }}>TRIDENT</div>
-              <div className={"w-full h-[1px] my-[4px] transition-all duration-500 " + (navActive ? "bg-gradient-to-r from-[#1B4D8E] to-transparent" : "bg-white/40")}></div>
-              <div className={"font-sans text-[9px] md:text-[10.5px] font-bold tracking-[0.25em] uppercase leading-none transition-colors duration-500 " + (navActive ? "text-[#1B4D8E]" : "text-white/90")}>ACADEMY OF TECHNOLOGY</div>
+              <div className={`font-serif text-[24px] md:text-[28px] font-black leading-none uppercase transition-colors duration-500 ${navActive ? "text-[#3E3A36]" : "text-white"}`} style={{ fontFamily: "'Playfair Display', 'Source Serif 4', serif", letterSpacing: "0.02em" }}>TRIDENT</div>
+              <div className={`w-full h-[1px] my-[4px] transition-all duration-500 ${navActive ? "bg-gradient-to-r from-[#1B4D8E] to-transparent" : "bg-white/30"}`}></div>
+              <div className={`font-sans text-[9px] md:text-[10.5px] font-bold tracking-[0.25em] uppercase leading-none transition-colors duration-500 ${navActive ? "text-[#1B4D8E]" : "text-white/90"}`}>ACADEMY OF TECHNOLOGY</div>
             </div>
           </a>
 
@@ -113,14 +113,18 @@ export default function Header() {
           <nav className="hidden lg:block">
             <ul className="flex items-center gap-6 list-none m-0 p-0">
               {NAV_LINKS.map(item => {
-                const isAcademics = item.label.toLowerCase() === 'academics';
+                const isCampusLife = item.label.toLowerCase() === 'campus life';
                 return (
                   <li key={item.label} className="relative py-1">
-                    <a href={item.href} className={"nav-link text-[14px] uppercase tracking-[0.14em] cursor-pointer whitespace-nowrap font-extrabold transition-colors duration-500 text-decoration-none " + (navActive ? (isAcademics ? "text-[#1B4D8E]" : "text-[#3E3A36] hover:text-[#1B4D8E]") : "text-white/90 hover:text-white")}>
+                    <a href={item.href} className={`nav-link text-[14px] uppercase tracking-[0.14em] cursor-pointer whitespace-nowrap font-extrabold transition-colors duration-500 text-decoration-none ${
+                      isCampusLife 
+                        ? (navActive ? "text-[#1B4D8E]" : "text-white") 
+                        : (navActive ? "text-[#3E3A36] hover:text-[#1B4D8E]" : "text-white/90 hover:text-white")
+                    }`}>
                       {item.label}
                     </a>
-                    {isAcademics && (
-                      <div className="absolute -bottom-1 left-0 w-full h-[3px] bg-[#1B4D8E] rounded-full" />
+                    {isCampusLife && (
+                      <div className={`absolute -bottom-1 left-0 w-full h-[3px] rounded-full transition-colors duration-500 ${navActive ? "bg-[#1B4D8E]" : "bg-white"}`} />
                     )}
                   </li>
                 );
@@ -135,7 +139,7 @@ export default function Header() {
 
           {/* Mobile Toggle */}
           <button 
-            className={"lg:hidden p-2 rounded-lg transition-colors active:scale-95 z-50 relative " + (navActive ? "text-primary bg-soft hover:bg-primary/10" : "text-white bg-white/10 hover:bg-white/20")}
+            className={`lg:hidden p-2 rounded-lg transition-colors active:scale-95 z-50 relative ${navActive ? "text-primary bg-soft hover:bg-primary/10" : "text-white hover:bg-white/10"}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle Menu"
           >
@@ -150,7 +154,7 @@ export default function Header() {
         >
           <div className="px-6 flex flex-col h-full overflow-y-auto pb-4">
             {NAV_LINKS.map((item, i) => {
-              const isAcademics = item.label.toLowerCase() === 'academics';
+              const isCampusLife = item.label.toLowerCase() === 'campus life';
               return (
               <a 
                 key={item.label} 
@@ -158,7 +162,7 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`block py-3.5 text-[15px] font-extrabold text-[#3E3A36] uppercase tracking-[0.14em] hover:text-primary hover:bg-soft/50 rounded-lg px-3 transition-all duration-500 transform text-decoration-none ${
                   mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-                } ${isAcademics ? 'text-[#1B4D8E]' : ''}`}
+                } ${isCampusLife ? 'text-[#1B4D8E]' : ''}`}
                 style={{ 
                   transitionDelay: `${mobileOpen ? i * 40 + 100 : 0}ms`, 
                   borderBottom: i !== NAV_LINKS.length - 1 ? "1px solid rgba(27,77,142,0.1)" : "none" 

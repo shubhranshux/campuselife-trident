@@ -8,29 +8,31 @@ function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+const links = [
+  { name: 'News', id: 'news' },
+  { name: 'Research', id: 'research' },
+  { name: 'Activities', id: 'activities' },
+  { name: 'Facilities', id: 'facilities' },
+  { name: 'Impact', id: 'impact' },
+  { name: 'Events', id: 'events' },
+  { name: 'Clubs', id: 'clubs' },
+  { name: 'Sports', id: 'sports' },
+  { name: 'Leadership', id: 'leadership' },
+];
+
 const SubNav = () => {
   const location = useLocation();
   const [activeToken, setActiveToken] = useState('news');
   const [isVisible, setIsVisible] = useState(false);
 
-  // Do not render SubNav on subpages/tertiary pages
-  if (location.pathname !== '/') {
-    return null;
-  }
-
-  const links = [
-    { name: 'News', id: 'news' },
-    { name: 'Research', id: 'research' },
-    { name: 'Activities', id: 'activities' },
-    { name: 'Facilities', id: 'facilities' },
-    { name: 'Impact', id: 'impact' },
-    { name: 'Events', id: 'events' },
-    { name: 'Clubs', id: 'clubs' },
-    { name: 'Sports', id: 'sports' },
-    { name: 'Leadership', id: 'leadership' },
-  ];
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
+    if (!isHomePage) {
+      setIsVisible(false);
+      return;
+    }
+
     const handleScroll = () => {
       const heroElement = document.getElementById('hero') || document.querySelector('section:first-of-type');
       const heroHeight = heroElement?.offsetHeight || 700;
@@ -53,7 +55,7 @@ const SubNav = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const handleClick = (id) => {
     const element = document.getElementById(id);
@@ -68,6 +70,11 @@ const SubNav = () => {
       });
     }
   };
+
+  // Don't render SubNav on subpages — but AFTER all hooks
+  if (!isHomePage) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
