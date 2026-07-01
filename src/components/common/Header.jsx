@@ -121,13 +121,13 @@ export default function Header() {
                   <li key={item.label} className="relative py-1">
                     <a href={item.href} className={`nav-link text-[14px] uppercase tracking-[0.14em] cursor-pointer whitespace-nowrap font-extrabold transition-colors duration-500 text-decoration-none ${
                       isCampusLife 
-                        ? (navActive ? "text-[#1B4D8E]" : "text-white") 
-                        : (navActive ? "text-[#3E3A36] hover:text-[#1B4D8E]" : "text-white/90 hover:text-white")
+                        ? (navActive ? "text-[#535884]" : "text-[#535884]") 
+                        : (navActive ? "text-[#3E3A36]" : "text-white/90")
                     }`}>
                       {item.label}
                     </a>
                     {isCampusLife && (
-                      <div className={`absolute -bottom-1 left-0 w-full h-[3px] rounded-full transition-colors duration-500 ${navActive ? "bg-[#1B4D8E]" : "bg-white"}`} />
+                      <div className={`absolute -bottom-1 left-0 w-full h-[3px] rounded-full transition-colors duration-500 ${navActive ? "bg-[#535884]" : "bg-[#535884]"}`} />
                     )}
                   </li>
                 );
@@ -165,7 +165,7 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`block py-3.5 text-[15px] font-extrabold text-[#3E3A36] uppercase tracking-[0.14em] hover:text-primary hover:bg-soft/50 rounded-lg px-3 transition-all duration-500 transform text-decoration-none ${
                   mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-                } ${isCampusLife ? 'text-[#1B4D8E]' : ''}`}
+                } ${isCampusLife ? 'text-[#535884]' : ''}`}
                 style={{ 
                   transitionDelay: `${mobileOpen ? i * 40 + 100 : 0}ms`, 
                   borderBottom: i !== NAV_LINKS.length - 1 ? "1px solid rgba(27,77,142,0.1)" : "none" 

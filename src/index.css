@@ -199,8 +199,8 @@ html.lenis, html.lenis body { height: auto; }
     background: var(--primary-blue);
     transition: width 0.3s ease;
   }
-  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-  .nav-link.active, .nav-link:hover { color: var(--primary-blue) !important; }
+  .nav-link.active::after { width: 100%; }
+  .nav-link.active { color: var(--primary-blue) !important; }
 
   /* ── Premium Card Hover (subtle, not cyber) ── */
   .card-hover {
